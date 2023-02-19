@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+ import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, createContext, useContext } from "react";
+import AppContext from "./contexts/AppContext";
+import MainDashboard from './pages/MainDashboard';
+import LogIn from './components/LogIn';
+import NotFound from "./pages/NotFound";
 import './App.css';
 
 function App() {
+  const [userName, setUserName] = useState(null);
+  console.log(userName);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{ userName, setUserName }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={
+             userName?
+             <MainDashboard />
+             :
+             <LogIn />
+          } />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 
