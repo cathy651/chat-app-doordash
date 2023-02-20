@@ -1,25 +1,24 @@
- import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useState, createContext, useContext } from "react";
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import AppContext from "./contexts/AppContext";
-import MainDashboard from './pages/MainDashboard';
-import LogIn from './components/LogIn';
+import LogIn from "./components/LogIn";
+import ChatRoom from './components/ChatRoom'
 import NotFound from "./pages/NotFound";
+import SideBar from "./components/SideBar";
+
 import './App.css';
 
 function App() {
-  const [userName, setUserName] = useState(null);
-  const [ selectedRoomID, setSelectedRoomID ] = useState(null);
-  console.log(userName);
+  const [ userName, setUserName ] = useState(null);
+
   return (
-    <AppContext.Provider value={{ userName, setUserName, selectedRoomID, setSelectedRoomID }}>
+    <AppContext.Provider value={{ userName, setUserName }}>
       <BrowserRouter>
+        <SideBar />
         <Routes>
-          <Route path="/" element={
-             userName?
-             <MainDashboard />
-             :
-             <LogIn />
-          } />
+          <Route path="/" element={<LogIn />} />
+          <Route path="/room/:id" element={<ChatRoom />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

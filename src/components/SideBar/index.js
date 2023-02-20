@@ -1,44 +1,38 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from 'react-router-dom'
 import AppContext from '../../contexts/AppContext'
 import { getRooms } from "../../utils/APIs";
 
-import './Nav.css'
+import './SideBar.css'
 
-const Nav = () => {
-  const { userName, slectedRoomID, setSelectedRoomID } = useContext(AppContext);
+const SideBar = () => {
+  const { userName } = useContext(AppContext);
   const [ rooms, setRooms ] = useState(null);
+ 
   useEffect(() => {
     getRooms()
       .then(data => {setRooms(data)})
       .catch(error => error)
-  },[slectedRoomID]);
+  }, [rooms]);
 
-  const handleClickRoomName = (e) => {
-    setSelectedRoomID(e.target.id);
-  }
 
   return (
     <div>
-      <div className="login-Info"><h2>welcome {userName}</h2></div>
-
+      <div>welcome {userName}</div>
+     
       <div className="rooms">
         {
           rooms?.map((room, index) => 
             (<div className="room-name" key={index}>
-              <button 
-                className="room-btn"
-                onClick={handleClickRoomName}
-                id={room.id}
-                >
-                {room.name}
-              </button>
+              <Link to={`/room/${room.id}`}>
+                  {room.name}
+              </Link>
             </div>)
           )
         }
       </div>
     </div>
-    
   )
 }
 
-export default Nav
+export default SideBar
