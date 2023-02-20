@@ -8,14 +8,13 @@ import ChatRoom from '../../components/ChatRoom'
 import './MainDashboard.css'
 
 const MainDashboard = () => {
-  const { userName, setUserName } = useContext(AppContext);
+  const { userName, selectedRoomID, setSelectedRoomID } = useContext(AppContext);
   
   return (
-    <>
-     <>welcome {userName}</>
-      <Nav />
-      <ChatRoom />
-    </>
+    <div className="dashboard-container">
+     <div className="left-nav"><Nav /></div>
+     <div className="right-chat-box"><ChatRoom /></div>
+    </div>
   )
 }
 

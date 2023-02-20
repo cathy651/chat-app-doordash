@@ -1,0 +1,23 @@
+.room-name {
+  color:white;
+}
+
+.login-Info {
+  height: 100px;
+  color: white;
+  font-size: medium;
+  margin: 20px;
+}
+
+.room-btn {
+  width: 100%;
+  background-color: #f54257;
+  color: white;
+  font-size: medium;
+  border: none;
+  padding: 10px;
+}
+
+.room-btn:hover {
+  background-color: #812f3985;
+}

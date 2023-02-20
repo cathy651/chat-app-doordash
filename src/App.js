@@ -8,9 +8,10 @@ import './App.css';
 
 function App() {
   const [userName, setUserName] = useState(null);
+  const [ selectedRoomID, setSelectedRoomID ] = useState(null);
   console.log(userName);
   return (
-    <AppContext.Provider value={{ userName, setUserName }}>
+    <AppContext.Provider value={{ userName, setUserName, selectedRoomID, setSelectedRoomID }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={
