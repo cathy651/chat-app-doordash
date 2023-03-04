@@ -1,15 +1,25 @@
+import { useState, useEffect, useContext, } from "react"
+import AppContext from '../../contexts/AppContext'
 
-import { useState, useEffect } from "react";
-import { getMessages } from "../../utils/APIs";
+import { getMessages } from "../../utils/APIs"
 import './ChatBox.css'
 
-const ChatBox = ({roomId}) => {
+const ChatBox = ({ roomId }) => {
+  const { userName } = useContext(AppContext);
   const [ messages, setMessages ] = useState(null);
+  const [ newMessage, setNewMessage ] = useState(null);
+
   useEffect(()=> {
     getMessages(roomId)
     .then(data => setMessages(data))
     .catch(error => error)
   },[roomId])
+
+  // const handleSubmit = () => {
+  //   // update messages
+
+  //   // update room info
+  // }
   
   return (
     <div>
@@ -20,6 +30,21 @@ const ChatBox = ({roomId}) => {
           <div className="message">{message.message}</div>
         </div>)
       })}
+
+      <div>
+          <input 
+            className='input-box' 
+            type="text" 
+            onChange={e => setNewMessage(e.target.value)}
+            placeholder='send message'
+            name='name'
+          />
+        
+          <button 
+            className='btn'
+            // onClick={handleSubmit}
+          >Send</button>
+      </div>
     </div>
   )
 }
